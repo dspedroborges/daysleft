@@ -1,9 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-export default function HomePage() {
+export default function Page() {
+  return <Suspense>
+    <HomePage />
+  </Suspense>
+}
+
+function HomePage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const startParam: string | null = searchParams.get('start');
