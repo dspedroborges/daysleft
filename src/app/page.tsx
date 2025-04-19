@@ -90,12 +90,12 @@ function HomePage() {
   const remainingDays = totalDays !== null ? totalDays - passedDays : 0;
 
   return (
-    <div className="p-5">
+    <div className="p-5 lg:w-1/3 mx-auto">
       <h1 className="text-2xl font-bold mb-2">
         De {new Date(startDate + "T12:00:00").toLocaleDateString()} até {new Date(targetDate + "T12:00:00").toLocaleDateString()}
       </h1>
       <h2 className="text-xl mb-4">{remainingDays} dias restantes</h2>
-      <div className="flex flex-wrap">
+      <div className="grid grid-cols-10 w-auto gap-1">
         {totalDays !== null &&
           Array.from({ length: totalDays }).map((_, index) => {
             const isPassed = index < passedDays;
@@ -108,7 +108,6 @@ function HomePage() {
           })}
       </div>
       <button
-        type="submit"
         className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer"
         onClick={() => {
           router.push("/");
