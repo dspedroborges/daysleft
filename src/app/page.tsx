@@ -92,7 +92,7 @@ function HomePage() {
   return (
     <div className="p-5">
       <h1 className="text-2xl font-bold mb-2">
-        De {new Date(startDate).toLocaleDateString()} até {new Date(targetDate).toLocaleDateString()}
+        De {new Date(startDate + "T12:00:00").toLocaleDateString()} até {new Date(targetDate + "T12:00:00").toLocaleDateString()}
       </h1>
       <h2 className="text-xl mb-4">{remainingDays} dias restantes</h2>
       <div className="flex flex-wrap">
