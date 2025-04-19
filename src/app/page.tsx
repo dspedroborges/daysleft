@@ -14,11 +14,14 @@ function HomePage() {
   const router = useRouter();
   const startParam: string | null = searchParams.get('start');
   const targetParam: string | null = searchParams.get('target');
+  const titleParam: string | null = searchParams.get('title');
 
   const [startDate, setStartDate] = useState<string>(startParam || '');
   const [targetDate, setTargetDate] = useState<string>(targetParam || '');
   const [inputStartDate, setInputStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [inputTargetDate, setInputTargetDate] = useState<string>('');
+  const [title, setTitle] = useState<string>(titleParam || '');
+  const [inputTitle, setInputTitle] = useState<string>(titleParam || '');
 
   const [totalDays, setTotalDays] = useState<number | null>(null);
   const [passedDays, setPassedDays] = useState<number>(0);
@@ -45,7 +48,8 @@ function HomePage() {
     if (inputStartDate && inputTargetDate) {
       setStartDate(inputStartDate);
       setTargetDate(inputTargetDate);
-      const url = `/?start=${inputStartDate}&target=${inputTargetDate}`;
+      setTitle(inputTitle);
+      const url = `/?start=${inputStartDate}&target=${inputTargetDate}&title=${encodeURIComponent(inputTitle)}`;
       router.push(url);
       router.refresh();
     }
@@ -54,8 +58,17 @@ function HomePage() {
   if (!startDate || !targetDate) {
     return (
       <div className="p-5 lg:w-1/2 mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Insira as datas</h1>
+        <h1 className="text-2xl font-bold mb-4">Insira as informações</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <div className="flex flex-col">
+            <label className="mb-1 font-medium">Título da Página:</label>
+            <input
+              type="text"
+              value={inputTitle}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputTitle(e.target.value)}
+              className="p-2 border border-gray-300 rounded"
+            />
+          </div>
           <div className="flex flex-col">
             <label className="mb-1 font-medium">Data de Início:</label>
             <input
@@ -91,10 +104,11 @@ function HomePage() {
 
   return (
     <div className="p-5 lg:w-1/3 mx-auto">
-      <h1 className="text-2xl font-bold mb-2">
+      <h1 className="text-2xl font-bold mb-2">{title || 'Contagem de Dias'}</h1>
+      <h2 className="text-lg mb-2">
         De {new Date(startDate + "T12:00:00").toLocaleDateString()} até {new Date(targetDate + "T12:00:00").toLocaleDateString()}
-      </h1>
-      <h2 className="text-xl mb-4">{remainingDays} dias restantes</h2>
+      </h2>
+      <h3 className="text-xl mb-4">{remainingDays} dias restantes</h3>
       <div className="grid grid-cols-10 w-auto gap-1">
         {totalDays !== null &&
           Array.from({ length: totalDays }).map((_, index) => {
@@ -112,7 +126,8 @@ function HomePage() {
         onClick={() => {
           router.push("/");
           setStartDate("");
-          setTargetDate("")
+          setTargetDate("");
+          setTitle("");
         }}
       >
         Novo
