@@ -108,7 +108,7 @@ function HomePage() {
           })}
       </div>
       <button
-        className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer"
+        className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer w-full"
         onClick={() => {
           router.push("/");
           setStartDate("");
