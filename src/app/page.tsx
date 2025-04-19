@@ -53,7 +53,7 @@ function HomePage() {
 
   if (!startDate || !targetDate) {
     return (
-      <div className="p-5">
+      <div className="p-5 lg:w-1/2 mx-auto">
         <h1 className="text-2xl font-bold mb-4">Insira as datas</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <div className="flex flex-col">
